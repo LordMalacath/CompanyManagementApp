@@ -1,0 +1,79 @@
+.sign__wrapper {
+    padding: 1.25rem 0 4.375rem 0;
+}
+
+.sign__form-title {
+    margin-top: 0.625rem;
+    font-size: 1.2rem;
+}
+
+.sign__field {
+    display: flex;
+    row-gap: 0.625rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 0 1.25rem;
+    margin-top: 1.25rem;
+    position: relative;
+}
+
+.sign__field.role {
+    display: block;
+}
+
+.sign__field.role .sign__label {
+    margin-right: 0.9375rem;
+}
+
+.sign__field-error {
+    position: absolute;
+    bottom: -1rem;
+    color: red;
+    font-size: 0.875rem;
+}
+
+.sign__field:first-of-type {
+    margin-top: 1.875rem;
+}
+
+.sign__label {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    flex-shrink: 0;
+    flex-grow: 1;
+    flex-basis: 9.375rem;
+    max-width: 9.375rem;
+    font-size: 0.9rem;
+    color: #3d3d3d;
+}
+
+.sign__input {
+    flex-grow: 3;
+    flex-basis: max-content;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    border-bottom: 0.0625rem solid #ccc;
+    text-align: center;
+    line-height: 1.2;
+}
+
+.sign__submit {
+    display: block;
+    padding: 0.625rem;
+    border-radius: 0.625rem;
+    border: 0.0625rem solid #ccc;
+    margin: 1.25rem auto 0 auto;
+}
+
+.sign__submit:hover {
+    background-color: rgba(89, 240, 209, .2);
+}
+
+@media (max-width: 25em) {
+    .sign__form-title {
+        margin-top: 1.875rem;
+    }
+}

@@ -1,0 +1,98 @@
+.list {
+    flex-grow: 1;
+}
+
+.list__title {
+    margin-top: 2.5rem;
+    text-align: center;
+}
+
+.list__items {
+    padding: 0 1.25rem;
+    margin-top: 2.5rem;
+}
+
+.list__add {
+    list-style-type: none;
+    width: 3.125rem;
+    height: 3.125rem;
+    cursor: pointer;
+    margin: 1.25rem auto 0 auto;
+}
+
+.list__add svg {
+    width: 100%;
+    height: 100%;
+}
+
+.list__item {
+    list-style-type: none;
+    padding: 0.9375rem;
+    text-align: center;
+    max-width: 75rem;
+    border-radius: 1.25rem;
+    border: 0.0625rem solid rgba(0, 0, 0, .2);
+    margin: 1.25rem auto 0 auto;
+    transition: box-shadow .4s;
+    cursor: pointer;
+}
+
+.list__item:hover {
+    box-shadow: 0 0.0625rem 0.9375rem 0.0625rem rgba(0, 0, 0, 0.1);
+}
+
+.list__item hr {
+    margin: 1.25rem 0;
+    border: 0.0625rem solid rgba(0, 0, 0, .1);
+}
+
+.list__item-title {
+    display: flex;
+    justify-content: center;
+    padding: 0.625rem 0.625rem 1.25rem 0.625rem;
+    border-bottom: 0.0625rem solid rgba(0, 0, 0, .1);
+}
+
+.list__item-title span {
+    display: inline;
+    margin-right: 0.625rem;
+    font-size: 0.875rem;
+    color: #8f8f8f;
+    align-self: end;
+}
+
+.list__item-info-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(15.625rem, 1fr));
+}
+
+.list__item-info {
+    margin-top: 0.625rem;
+    display: flex;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    max-width: 92%;
+    line-height: 1.1rem;
+}
+
+.list__item-info p {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.list__item-info span {
+    display: inline;
+    margin-right: 0.625rem;
+    font-size: 0.875rem;
+    color: #8f8f8f;
+    align-self: end;
+}
+
+@media (max-width: 25em) {
+
+    /* 400px */
+    .list__items {
+        padding: 0 0.125rem;
+    }
+}

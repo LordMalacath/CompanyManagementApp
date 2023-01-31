@@ -1,0 +1,143 @@
+main {
+    padding: 4.0625rem 0 0 17.5rem;
+}
+
+.header {
+    height: 4.0625rem;
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 0.0625rem solid rgba(0, 0, 0, .2);
+    padding: 0 0.9375rem;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    background-color: #fff;
+    z-index: 20;
+}
+
+.header__content-wrapper {
+    display: flex;
+    align-items: center;
+}
+
+.header__logo {
+    height: 100%;
+    width: 2.25rem;
+    display: flex;
+    align-items: center;
+    margin-right: 0.9375rem;
+}
+
+.header__logo svg {
+    height: 60%;
+}
+
+.header__title {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    user-select: none;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    font-size: 1.5rem;
+    font-family: OpenSans_Condensed;
+}
+
+.header__menu-button {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 1.3125rem;
+    width: 2.25rem;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+.header__menu-button span {
+    height: 0.1875rem;
+    width: 100%;
+    background-color: #3d3d3d;
+}
+
+.header__log-out:hover {
+    color: rgb(255, 64, 64);
+}
+
+.menu {
+    position: fixed;
+    top: 4.0625rem;
+    left: 0;
+    width: 17.5rem;
+    border-right: 0.0625rem solid rgba(0, 0, 0, .2);
+    height: calc(100vh - 4.0625rem);
+    background-color: #fff;
+}
+
+.menu__item {
+    padding: 1.25rem;
+    display: flex;
+    height: 3.75rem;
+    align-items: center;
+    cursor: pointer;
+    border-bottom: 0.0625rem solid rgba(0, 0, 0, .2);
+    text-decoration: none;
+}
+
+.menu__item:last-child {
+    border-bottom: 0.0625rem solid transparent;
+}
+
+.menu__item.active {
+    background-color: rgba(89, 240, 209, .2);
+}
+
+.menu__item:hover {
+    background-color: rgba(13, 13, 13, .05);
+}
+
+.menu__item.active:hover {
+    background-color: rgba(89, 240, 209, .2);
+}
+
+.menu__item-logo {
+    height: 100%;
+    margin-right: 0.9375rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu__item-logo svg {
+    height: 120%;
+}
+
+@media (max-width: 56.25rem) {
+
+    /* 900px */
+    main {
+        padding-left: 0;
+    }
+
+    .header {
+        padding: 0;
+    }
+
+    .header__title {
+        width: min-content;
+    }
+
+    .header__menu-button {
+        visibility: visible;
+        pointer-events: all;
+    }
+
+    .menu {
+        transition: left .4s ease;
+        z-index: 10;
+        left: -100%;
+    }
+
+    .menu.active {
+        z-index: 10;
+        left: 0;
+    }
+}

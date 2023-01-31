@@ -1,0 +1,8 @@
+.create {
+    flex-grow: 1;
+}
+
+.create__title {
+    margin-top: 2.5rem;
+    text-align: center;
+}
