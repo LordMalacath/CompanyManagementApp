@@ -17,7 +17,7 @@ import {
 import { CompanyService } from './companies.service';
 import { JwtAuthGuard } from '../guards/jwt.guard';
 import { RoleGuard } from '../guards/role.guard';
-import { ChangeCompany } from './dto/change-company.dto';
+import { EditCompany } from './dto/edit-company.dto';
 import { CreateCompany } from './dto/create-company.dto';
 import { Company } from './models/company.model';
 import Role from '../users/models/role.enum';
@@ -60,8 +60,8 @@ export class CompanyController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  changeCompany(@Body() changeCompany: ChangeCompany, @Param('id') id: string) {
-    return this.companyService.update(id, changeCompany);
+  editCompany(@Body() editCompany: EditCompany, @Param('id') id: string) {
+    return this.companyService.update(id, editCompany);
   }
 
   @UseGuards(JwtAuthGuard)

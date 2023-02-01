@@ -1,5 +1,5 @@
 .details-list {
-    width: 70%;
+    width: 55%;
     min-width: 20rem;
     margin: 0 auto;
 }
@@ -19,7 +19,8 @@
     margin: 1.5rem auto 0 auto;
     flex-direction: column;
     flex-basis: 1;
-    width: 45%;
+    width: fit-content;
+    max-width: 50%;
     min-width: 20rem;
     padding: 20px;
     border: 1px solid #ccc;

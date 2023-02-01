@@ -3,15 +3,13 @@ import {
   Controller,
   Patch,
   UseGuards,
-  Req,
   Delete,
   Get,
+  Param,
 } from '@nestjs/common';
-import { request } from 'http';
 import { JwtAuthGuard } from '../guards/jwt.guard';
 import { RoleGuard } from '../guards/role.guard';
 import { User } from './models/user.model';
-import { CreateUser } from './dto/create-user.dto';
 import { EditUser } from './dto/edit-user.dto';
 import { UserService } from './users.service';
 import Role from './models/role.enum';
@@ -20,27 +18,20 @@ import Role from './models/role.enum';
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
-  // @Post('create-user')
-  // createUser(@Body() createUser: CreateUser) {
-  //   return this.userService.create(createUser);
-  // }
-
   @UseGuards(JwtAuthGuard)
-  @Patch()
-  async changeUser(
+  @Patch(':id')
+  async editUser(
     @Body() editUser: EditUser,
-    @Req() request,
+    @Param('id') id: string,
   ): Promise<EditUser> {
-    const user = request.user;
-    await this.userService.update(user.id, editUser);
+    await this.userService.update(id, editUser);
     return editUser;
   }
 
   @UseGuards(JwtAuthGuard)
-  @Delete()
-  deleteUser(@Req() request): Promise<boolean> {
-    const user = request.user;
-    return this.userService.remove(user.id);
+  @Delete(':id')
+  deleteUser(@Param('id') id: string): Promise<boolean> {
+    return this.userService.remove(id);
   }
 
   @UseGuards(RoleGuard(Role.Admin))

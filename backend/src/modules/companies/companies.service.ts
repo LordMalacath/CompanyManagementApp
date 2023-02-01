@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { ChangeCompany } from './dto/change-company.dto';
+import { EditCompany } from './dto/edit-company.dto';
 import { CreateCompany } from './dto/create-company.dto';
 import { Company } from './models/company.model';
 
@@ -62,11 +62,11 @@ export class CompanyService {
 
   update(
     id: string,
-    changeCompany: ChangeCompany,
+    editCompany: EditCompany,
   ): Promise<[affectedCount: number, affectedRows: Company[]]> {
     try {
       return this.companyModel.update(
-        { ...changeCompany },
+        { ...editCompany },
         {
           where: {
             id,

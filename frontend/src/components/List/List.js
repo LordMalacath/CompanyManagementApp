@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { formatTheField } from '../../utils/formatTheField'
 import { ReactComponent as ReactPlusIcon } from '../../assets/img/plusIcon.svg'
-import { useEffect } from 'react'
-import { getCompaniesAction } from '../../actions/companyActions'
 import './List.css'
 
 const values = {
-  user: { title: 'last_name', fields: ['email', 'phone_number', 'position'] },
+  user: {
+    title: 'first_name',
+    fields: ['last_name', 'email', 'phone_number', 'position'],
+  },
   company: {
     title: 'name',
     fields: ['service_of_activity', 'address', 'number_of_employees', 'type'],
@@ -17,23 +18,27 @@ const values = {
 export const List = (props) => {
   const role = useSelector((state) => state.user.role)
   const { type } = props
-  const dispatch = useDispatch()
-  const renderData = useSelector((state) =>
-    role === 'Admin' ? state.admin.companies : state.user.company,
-  )
-
-  useEffect(() => {
-    if (renderData.length <= 0 && role === 'Admin') {
-      dispatch(getCompaniesAction(role))
-    }
-  }, [])
+  const stateData = useSelector((state) => ({
+    company: role === 'Admin' ? state.admin.companies : state.user.company,
+    user:
+      role === 'Admin'
+        ? state.admin.users.filter((user) => user.id !== state.user.id)
+        : [],
+  }))
+  const renderData = stateData[type]
 
   return (
     <section className="list">
-      <h2 className="list__title">My companies</h2>
+      <h2 className="list__title">
+        {type === 'user'
+          ? 'User list'
+          : role === 'Admin'
+          ? 'Companies list'
+          : 'My companies'}
+      </h2>
       <ul className="list__items">
         {renderData.map((item) => (
-          <Link to={`company/:${item.id}`} key={item.id}>
+          <Link to={`/${type}/:${item.id}`} key={item.id}>
             <li className="list__item">
               <div className="list__item-title">
                 <span>{formatTheField(values[type].title)}:</span>
@@ -50,13 +55,13 @@ export const List = (props) => {
             </li>
           </Link>
         ))}
-        <li className="list__add">
-          {role !== 'Admin' && (
+        {role !== 'Admin' && (
+          <li className="list__add">
             <Link to={`company/new`}>
               <ReactPlusIcon />
             </Link>
-          )}
-        </li>
+          </li>
+        )}
       </ul>
     </section>
   )

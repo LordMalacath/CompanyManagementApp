@@ -14,8 +14,8 @@ export const initialValues = {
     nick_name: '',
     email: '',
     phone_number: '',
-    description: '',
     position: '',
+    description: '',
   },
   signin: { email: '', password: '' },
   signup: {
@@ -25,8 +25,8 @@ export const initialValues = {
     last_name: '',
     nick_name: '',
     phone_number: '',
-    description: '',
     position: '',
+    description: '',
     role: '',
   },
 }
@@ -70,7 +70,7 @@ export const validationSchema = {
       .max(55, 'Must be 55 characters or less')
       .required('Required'),
     position: Yup.string()
-      .max(15, 'Must be 15 characters or less')
+      .max(25, 'Must be 25 characters or less')
       .required('Required'),
   }),
   signin: Yup.object({
@@ -100,7 +100,7 @@ export const validationSchema = {
       .max(55, 'Must be 55 characters or less')
       .required('Required'),
     position: Yup.string()
-      .max(15, 'Must be 15 characters or less')
+      .max(25, 'Must be 25 characters or less')
       .required('Required'),
   }),
 }

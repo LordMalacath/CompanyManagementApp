@@ -7,7 +7,7 @@ import {
   GET_COMPANIES_SUCCESS,
   ASYNC_ACTION_STARTED,
   ASYNC_ACTION_FAILURE,
-  GET_ADMIN_COMPANIES_SUCCESS,
+  GET_COMPANIES_ADMIN_SUCCESS,
 } from './types'
 
 export const createCompanyAction = (company) => {
@@ -35,7 +35,6 @@ export const deleteCompanyAction = (id) => {
         toast.success('Company deleted')
       })
       .catch((err) => {
-        console.log(err)
         dispatch(companiesActionFailure(err))
         toast.error('Something went wrong, try again later')
       })
@@ -105,7 +104,7 @@ const deleteCompanySuccess = (id) => ({
 })
 
 const getAdminCompaniesSuccess = (companies) => ({
-  type: GET_ADMIN_COMPANIES_SUCCESS,
+  type: GET_COMPANIES_ADMIN_SUCCESS,
   payload: companies,
 })
 

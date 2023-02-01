@@ -5,6 +5,7 @@ import { changeMenuStateAction } from '../../actions/pageActions'
 import { ReactComponent as ReactLogo } from '../../assets/img/logo.svg'
 import { ReactComponent as ReactCompaniesIcon } from '../../assets/img/companiesIcon.svg'
 import { ReactComponent as ReactProfileIcon } from '../../assets/img/profileIcon.svg'
+import { ReactComponent as ReactUsersIcon } from '../../assets/img/usersIcon.svg'
 import { Loader } from '../Loader/Loader'
 import { logOutAction } from '../../actions/authActions'
 import 'react-toastify/dist/ReactToastify.css'
@@ -15,6 +16,7 @@ export const Layout = () => {
   const menuIsOpened = useSelector((state) => state.page.menuIsOpened)
   const userId = useSelector((state) => state.user.id)
   const isLoading = useSelector((state) => state.page.isLoading)
+  const role = useSelector((state) => state.user.role)
 
   const onMenuBtnClick = () => {
     dispatch(changeMenuStateAction())
@@ -48,13 +50,27 @@ export const Layout = () => {
       </header>
       <main>
         <nav className={`menu ${menuIsOpened ? 'active' : ''}`}>
-          <NavLink to="/" className="menu__item">
+          <NavLink
+            to="/"
+            className={`menu__item ${role === 'Admin' ? 'admin' : ''}`}
+          >
             <span className="menu__item-logo">
               <ReactCompaniesIcon />
             </span>
             <span className="menu__item-title">Companies</span>
           </NavLink>
-          <NavLink to={`user/${userId}`} className="menu__item">
+          {role === 'Admin' && (
+            <NavLink to="user/all" className="menu__item admin">
+              <span className="menu__item-logo">
+                <ReactUsersIcon />
+              </span>
+              <span className="menu__item-title">Users</span>
+            </NavLink>
+          )}
+          <NavLink
+            to={`user/:${userId}`}
+            className={`menu__item ${role === 'Admin' ? 'admin' : ''}`}
+          >
             <span className="menu__item-logo">
               <ReactProfileIcon />
             </span>

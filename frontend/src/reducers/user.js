@@ -3,8 +3,8 @@ import {
   GET_COMPANIES_SUCCESS,
   AUTH_SUCCESS,
   LOG_OUT,
-  DELETE_USER_SUCCESS,
-  CHANGE_USER_SUCCESS,
+  DELETE_PROFILE_SUCCESS,
+  EDIT_PROFILE_SUCCESS,
 } from '../actions/types'
 
 const initialState = {
@@ -22,12 +22,12 @@ export const userReducer = (state = initialState, action) => {
       }
     case LOG_OUT:
       return initialState
-    case DELETE_USER_SUCCESS:
+    case DELETE_PROFILE_SUCCESS:
       return initialState
-    case CHANGE_USER_SUCCESS:
+    case EDIT_PROFILE_SUCCESS:
       return {
         ...state,
-        ...action.payload,
+        ...action.payload.user,
       }
     case DELETE_COMPANY_SUCCESS:
       return {

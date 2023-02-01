@@ -1,14 +1,14 @@
 import { axiosInstance } from './axiosInstance'
 
 export class UserApi {
-  static async deleteUser() {
-    const res = await axiosInstance.delete('users')
+  static async deleteUser(id) {
+    const res = await axiosInstance.delete(`users/${id}`)
     return res
   }
 
-  static async editUser(user) {
-    const res = await axiosInstance.patch('users', user)
-    return res
+  static async editUser(id, user) {
+    const res = await axiosInstance.patch(`users/${id}`, user)
+    return res.data
   }
 
   static async getUsersAdmin() {

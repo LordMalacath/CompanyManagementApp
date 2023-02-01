@@ -6,3 +6,30 @@
     margin-top: 2.5rem;
     text-align: center;
 }
+
+.details__owner {
+    display: block;
+    width: fit-content;
+    border: 0.0625rem solid #ccc;
+    margin: 1.25rem auto 0 auto;
+    text-align: center;
+    border-radius: 1.25rem;
+    padding: 1.25rem 2.5rem;
+    color: #131313;
+    transition: box-shadow .4s;
+}
+
+.details__owner:hover {
+    box-shadow: 0 0.0625rem 0.9375rem 0.0625rem rgba(0, 0, 0, 0.1);
+}
+
+.details__owner div {
+    height: 3.125rem;
+    width: 3.125rem;
+    margin: 0 auto 0.625rem auto;
+}
+
+.details__owner svg {
+    height: 100%;
+    width: 100%;
+}

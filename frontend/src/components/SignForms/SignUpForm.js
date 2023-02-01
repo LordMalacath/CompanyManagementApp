@@ -12,8 +12,8 @@ export const SignUpForm = () => {
       initialValues={initialValues.signup}
       validationSchema={validationSchema.signup}
       onSubmit={(values) => {
-        values.role = values.role === true ? 'Admin' : 'User'
-        dispatch(registerUserAction(values))
+        const role = values.role === true ? 'Admin' : 'User'
+        dispatch(registerUserAction({ ...values, role }))
       }}
     >
       <SignForm initialValues={initialValues.signup} type={'signup'}></SignForm>

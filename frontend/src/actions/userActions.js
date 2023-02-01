@@ -1,20 +1,28 @@
 import { toast } from 'react-toastify'
 import { UserApi } from '../api/userApi'
+import { getCompaniesAction } from './companyActions'
 import {
   ASYNC_ACTION_STARTED,
   ASYNC_ACTION_FAILURE,
-  DELETE_USER_SUCCESS,
-  CHANGE_USER_SUCCESS,
-  GET_ADMIN_USERS_SUCCESS,
+  DELETE_PROFILE_SUCCESS,
+  EDIT_PROFILE_SUCCESS,
+  GET_USERS_ADMIN_SUCCESS,
+  EDIT_USER_ADMIN_SUCCESS,
+  DELETE_USER_ADMIN_SUCCESS,
 } from './types'
 
-export const editUserAction = (user) => {
+export const editUserAction = (id, user, type = 'profile', role = 'User') => {
   return (dispatch) => {
     dispatch(userActionStarted())
-    UserApi.editUser(user)
+    UserApi.editUser(id, user)
       .then((res) => {
-        dispatch(changeUserSuccess(res))
-        toast.success('Profile changed')
+        if (type === 'user' && role === 'Admin') {
+          dispatch(editUserAdminSuccess(id, res))
+          toast.success('User changed')
+        } else {
+          dispatch(editProfileSuccess(id, res))
+          toast.success('Profile changed')
+        }
       })
       .catch((err) => {
         dispatch(userActionFailure(err))
@@ -23,12 +31,18 @@ export const editUserAction = (user) => {
   }
 }
 
-export const deleteUserAction = () => {
+export const deleteUserAction = (id, type = 'profile', role = 'User') => {
   return (dispatch) => {
     dispatch(userActionStarted())
-    UserApi.deleteUser()
+    UserApi.deleteUser(id)
       .then((res) => {
-        dispatch(deleteUserSuccess(res))
+        if (type === 'user' && role === 'Admin') {
+          dispatch(deleteUserAdminSuccess(id))
+          dispatch(getCompaniesAction(role))
+          toast.success('User deleted')
+        } else {
+          dispatch(deleteProfileSuccess(res))
+        }
       })
       .catch((err) => {
         dispatch(userActionFailure(err))
@@ -51,7 +65,7 @@ export const getUsersAdminAction = () => {
 }
 
 const getAdminUsersSuccess = (users) => ({
-  type: GET_ADMIN_USERS_SUCCESS,
+  type: GET_USERS_ADMIN_SUCCESS,
   payload: users,
 })
 
@@ -66,11 +80,21 @@ const userActionFailure = (error) => ({
   },
 })
 
-const deleteUserSuccess = () => ({
-  type: DELETE_USER_SUCCESS,
+const deleteProfileSuccess = () => ({
+  type: DELETE_PROFILE_SUCCESS,
 })
 
-const changeUserSuccess = (user) => ({
-  type: CHANGE_USER_SUCCESS,
-  payload: user.data,
+const deleteUserAdminSuccess = (id) => ({
+  type: DELETE_USER_ADMIN_SUCCESS,
+  payload: id,
+})
+
+const editProfileSuccess = (id, user) => ({
+  type: EDIT_PROFILE_SUCCESS,
+  payload: { user, id },
+})
+
+const editUserAdminSuccess = (id, user) => ({
+  type: EDIT_USER_ADMIN_SUCCESS,
+  payload: { id, user },
 })

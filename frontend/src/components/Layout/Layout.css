@@ -82,6 +82,20 @@ main {
     text-decoration: none;
 }
 
+.menu__item.admin .menu__item-title {
+    position: relative;
+}
+
+.menu__item.admin .menu__item-title::before {
+    content: 'admin';
+    color: blue;
+    position: absolute;
+    bottom: -0.875rem;
+    left: 0.5rem;
+    font-size: 0.75rem;
+
+}
+
 .menu__item:last-child {
     border-bottom: 0.0625rem solid transparent;
 }

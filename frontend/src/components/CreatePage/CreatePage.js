@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { Formik } from 'formik'
 import { createCompanyAction } from '../../actions/companyActions'
+import { BackButton } from '../BackButton/BackButton'
 import { initialValues, validationSchema } from '../common/formikData'
 import './CreatePage.css'
 
@@ -28,6 +29,7 @@ export const CreatePage = (props) => {
       >
         <InitialForm initialValues={initialValues[type]}></InitialForm>
       </Formik>
+      <BackButton />
     </section>
   )
 }

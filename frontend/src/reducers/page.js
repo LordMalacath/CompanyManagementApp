@@ -7,10 +7,12 @@ import {
   EDIT_COMPANY_SUCCESS,
   GET_COMPANIES_SUCCESS,
   AUTH_SUCCESS,
-  CHANGE_USER_SUCCESS,
+  EDIT_PROFILE_SUCCESS,
   LOG_OUT,
-  DELETE_USER_SUCCESS,
-  GET_ADMIN_COMPANIES_SUCCESS,
+  DELETE_PROFILE_SUCCESS,
+  GET_COMPANIES_ADMIN_SUCCESS,
+  EDIT_USER_ADMIN_SUCCESS,
+  DELETE_USER_ADMIN_SUCCESS,
 } from '../actions/types'
 
 const initialState = {
@@ -25,24 +27,19 @@ export const pageReducer = (state = initialState, action) => {
     case ASYNC_ACTION_STARTED:
       return { ...state, isLoading: true }
     case ASYNC_ACTION_FAILURE:
-      return { ...state, isLoading: false }
     case AUTH_SUCCESS:
-      return { ...state, isLoading: false }
-    case CHANGE_USER_SUCCESS:
-      return { ...state, isLoading: false }
+    case EDIT_PROFILE_SUCCESS:
     case CREATE_COMPANY_SUCCESS:
-      return { ...state, isLoading: false }
     case EDIT_COMPANY_SUCCESS:
-      return { ...state, isLoading: false }
     case DELETE_COMPANY_SUCCESS:
-      return { ...state, isLoading: false }
     case GET_COMPANIES_SUCCESS:
-      return { ...state, isLoading: false }
-    case GET_ADMIN_COMPANIES_SUCCESS:
+    case GET_COMPANIES_ADMIN_SUCCESS:
+    case EDIT_USER_ADMIN_SUCCESS:
+    case DELETE_USER_ADMIN_SUCCESS:
       return { ...state, isLoading: false }
     case LOG_OUT:
       return initialState
-    case DELETE_USER_SUCCESS:
+    case DELETE_PROFILE_SUCCESS:
       return initialState
     default:
       return state

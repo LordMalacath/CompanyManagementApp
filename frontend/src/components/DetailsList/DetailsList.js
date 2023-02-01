@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { deleteCompanyAction } from '../../actions/companyActions'
 import { deleteUserAction } from '../../actions/userActions'
 import { formatTheField } from '../../utils/formatTheField'
@@ -12,8 +12,8 @@ const values = {
     'nick_name',
     'email',
     'phone_number',
-    'description',
     'position',
+    'description',
   ],
   company: [
     'name',
@@ -28,11 +28,14 @@ export const DetailsList = (props) => {
   const { type, renderData, id } = props
   const dispatch = useDispatch()
   const navigate = useNavigate()
+  const currentUser = useSelector((state) => state.user)
+  const deleteType = +currentUser.id === +id ? 'profile' : 'user'
 
   const onDeleteBtnClick = () => {
     navigate(-1)
     type === 'company' && dispatch(deleteCompanyAction(id))
-    type === 'user' && dispatch(deleteUserAction())
+    type === 'user' &&
+      dispatch(deleteUserAction(id, deleteType, currentUser.role))
   }
 
   return (

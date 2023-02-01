@@ -1,0 +1,11 @@
+.back-button {
+    width: 4.375rem;
+    height: 4.375rem;
+    margin: 1.5625rem auto 0 auto;
+    display: block;
+}
+
+.back-button svg {
+    width: 100%;
+    height: 100%;
+}
