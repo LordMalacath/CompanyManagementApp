@@ -29,6 +29,7 @@ export const initialValues = {
     description: '',
     role: '',
   },
+  password: { new_password: '', confirm_password: '' },
 }
 
 export const validationSchema = {
@@ -102,5 +103,11 @@ export const validationSchema = {
     position: Yup.string()
       .max(25, 'Must be 25 characters or less')
       .required('Required'),
+  }),
+  password: Yup.object({
+    new_password: Yup.string().required('Password is required'),
+    confirm_password: Yup.string()
+      .oneOf([Yup.ref('new_password'), null], 'Passwords must match')
+      .required('Confirm password is required'),
   }),
 }

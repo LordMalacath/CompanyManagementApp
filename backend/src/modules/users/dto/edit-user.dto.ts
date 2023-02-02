@@ -9,4 +9,5 @@ export class EditUser {
   readonly phone_number: string;
   readonly description: string;
   readonly position: string;
+  readonly password: string;
 }

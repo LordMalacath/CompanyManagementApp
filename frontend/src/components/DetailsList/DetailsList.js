@@ -49,6 +49,11 @@ export const DetailsList = (props) => {
         ))}
       </div>
       <div className="details-list__buttons">
+        {type === 'user' && (
+          <Link to={`newpassword`} className="details-list__button">
+            Create new password
+          </Link>
+        )}
         <Link to={`edit`} className="details-list__button">
           Edit
         </Link>

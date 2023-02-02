@@ -13,6 +13,7 @@ import {
   GET_COMPANIES_ADMIN_SUCCESS,
   EDIT_USER_ADMIN_SUCCESS,
   DELETE_USER_ADMIN_SUCCESS,
+  CREATE_NEW_USER_PASSWORD_SUCCESS,
 } from '../actions/types'
 
 const initialState = {
@@ -36,6 +37,7 @@ export const pageReducer = (state = initialState, action) => {
     case GET_COMPANIES_ADMIN_SUCCESS:
     case EDIT_USER_ADMIN_SUCCESS:
     case DELETE_USER_ADMIN_SUCCESS:
+    case CREATE_NEW_USER_PASSWORD_SUCCESS:
       return { ...state, isLoading: false }
     case LOG_OUT:
       return initialState

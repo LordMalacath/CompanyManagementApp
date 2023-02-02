@@ -68,7 +68,7 @@ export const Layout = () => {
             </NavLink>
           )}
           <NavLink
-            to={`user/:${userId}`}
+            to={`user/${userId}`}
             className={`menu__item ${role === 'Admin' ? 'admin' : ''}`}
           >
             <span className="menu__item-logo">

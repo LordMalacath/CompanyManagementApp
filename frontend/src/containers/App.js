@@ -40,6 +40,10 @@ function App() {
           <Route index element={<List type="company" />} />
           <Route path="user/:id" element={<DetailsPage type="user" />} />
           <Route path="user/:id/edit" element={<EditPage type="user" />} />
+          <Route
+            path="user/:id/newpassword"
+            element={<CreatePage type="password" />}
+          />
           <Route path="company/:id" element={<DetailsPage type="company" />} />
           <Route element={<UserRoute />}>
             <Route path="company/new" element={<CreatePage type="company" />} />

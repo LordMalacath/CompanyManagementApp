@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus } from '@nestjs/common';
+import { BadRequestException, HttpException } from '@nestjs/common';
 import { Injectable } from '@nestjs/common/decorators';
 import { InjectModel } from '@nestjs/sequelize';
 import * as bcrypt from 'bcrypt';
@@ -65,11 +65,20 @@ export class UserService {
       const anotherUserWithEmail = await this.userModel.findAll({
         where: { email: editUser.email, [Op.not]: [{ id: id }] },
       });
-
       if (anotherUserWithEmail.length > 0)
-        throw new HttpException(AppError.EMAIL_TAKEN, HttpStatus.BAD_REQUEST);
+        throw new BadRequestException(AppError.EMAIL_TAKEN);
       await this.userModel.update(editUser, { where: { id } });
       return editUser;
+    } catch (error) {
+      throw new HttpException(error.response, error.status);
+    }
+  }
+
+  async updatePassword(id: string, editUser: EditUser): Promise<boolean> {
+    try {
+      const password = await this.hashPassword(editUser.password);
+      await this.userModel.update({ password }, { where: { id } });
+      return true;
     } catch (error) {
       throw new HttpException(error.response, error.status);
     }

@@ -1,14 +1,14 @@
 import { Navigate, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 import { EditCompanyForm } from '../EditForms/EditCompanyForm'
 import { EditUserForm } from '../EditForms/EditUserForm'
 import { BackButton } from '../BackButton/BackButton'
-import { useSelector } from 'react-redux'
 import { findById } from '../../utils/findById'
 import './EditPage.css'
 
 export const EditPage = (props) => {
   const { type } = props
-  const id = useParams().id.replace(':', '')
+  const { id } = useParams()
   const role = useSelector((state) => state.user.role)
   const stateData = useSelector((state) => ({
     company: role === 'Admin' ? state.admin.companies : state.user.company,

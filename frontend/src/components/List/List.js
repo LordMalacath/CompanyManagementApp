@@ -38,7 +38,7 @@ export const List = (props) => {
       </h2>
       <ul className="list__items">
         {renderData.map((item) => (
-          <Link to={`/${type}/:${item.id}`} key={item.id}>
+          <Link to={`/${type}/${item.id}`} key={item.id}>
             <li className="list__item">
               <div className="list__item-title">
                 <span>{formatTheField(values[type].title)}:</span>

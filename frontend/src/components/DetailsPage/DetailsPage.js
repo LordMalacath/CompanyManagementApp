@@ -8,7 +8,7 @@ import { findById } from '../../utils/findById'
 import './DetailsPage.css'
 
 export const DetailsPage = (props) => {
-  const id = useParams().id.replace(':', '')
+  const { id } = useParams()
   const { type } = props
   const userId = useSelector((state) => state.user.id)
   const role = useSelector((state) => state.user.role)
@@ -30,7 +30,7 @@ export const DetailsPage = (props) => {
           : `${renderData.first_name}'s profile`}
       </h2>
       {role === 'Admin' && type === 'company' && (
-        <Link to={`/user/:${renderData.user}`} className="details__owner">
+        <Link to={`/user/${renderData.user}`} className="details__owner">
           <div>
             <ReactProfileIcon />
           </div>

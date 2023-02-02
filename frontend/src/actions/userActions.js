@@ -9,6 +9,7 @@ import {
   GET_USERS_ADMIN_SUCCESS,
   EDIT_USER_ADMIN_SUCCESS,
   DELETE_USER_ADMIN_SUCCESS,
+  CREATE_NEW_USER_PASSWORD_SUCCESS,
 } from './types'
 
 export const editUserAction = (id, user, type = 'profile', role = 'User') => {
@@ -23,6 +24,20 @@ export const editUserAction = (id, user, type = 'profile', role = 'User') => {
           dispatch(editProfileSuccess(id, res))
           toast.success('Profile changed')
         }
+      })
+      .catch((err) => {
+        dispatch(userActionFailure(err))
+      })
+  }
+}
+
+export const createNewPasswordAction = (id, password) => {
+  return (dispatch) => {
+    dispatch(userActionStarted())
+    UserApi.editUserPassword(id, { password })
+      .then(() => {
+        dispatch(createNewUserPasswordSuccess())
+        toast.success('Password changed')
       })
       .catch((err) => {
         dispatch(userActionFailure(err))
@@ -73,9 +88,7 @@ const userActionStarted = () => ({
 
 const userActionFailure = (error) => ({
   type: ASYNC_ACTION_FAILURE,
-  payload: {
-    error,
-  },
+  payload: { error },
 })
 
 const deleteProfileSuccess = () => ({
@@ -95,4 +108,8 @@ const editProfileSuccess = (id, user) => ({
 const editUserAdminSuccess = (id, user) => ({
   type: EDIT_USER_ADMIN_SUCCESS,
   payload: { id, user },
+})
+
+const createNewUserPasswordSuccess = () => ({
+  type: CREATE_NEW_USER_PASSWORD_SUCCESS,
 })

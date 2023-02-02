@@ -19,7 +19,7 @@ export const InitialForm = (props) => {
             type={
               field === 'email'
                 ? 'email'
-                : field === 'password'
+                : field.match(/password/gi)
                 ? 'password'
                 : 'text'
             }

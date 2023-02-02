@@ -29,6 +29,15 @@ export class UserController {
   }
 
   @UseGuards(JwtAuthGuard)
+  @Patch(':id/password')
+  async editUserPassword(
+    @Body() editUser: EditUser,
+    @Param('id') id: string,
+  ): Promise<boolean> {
+    return this.userService.updatePassword(id, editUser);
+  }
+
+  @UseGuards(JwtAuthGuard)
   @Delete(':id')
   deleteUser(@Param('id') id: string): Promise<boolean> {
     return this.userService.remove(id);
