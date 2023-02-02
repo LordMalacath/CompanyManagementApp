@@ -19,7 +19,7 @@ export const List = (props) => {
   const role = useSelector((state) => state.user.role)
   const { type } = props
   const stateData = useSelector((state) => ({
-    company: role === 'Admin' ? state.admin.companies : state.user.company,
+    company: state.companies,
     user:
       role === 'Admin'
         ? state.admin.users.filter((user) => user.id !== state.user.id)

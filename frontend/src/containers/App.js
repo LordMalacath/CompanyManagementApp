@@ -12,7 +12,10 @@ import { PrivateRoute } from '../utils/routes/PrivateRoute'
 import { AuthorizingRoute } from '../utils/routes/AuthorizingRoute'
 import { AdminRoute } from '../utils/routes/AdminRoute'
 import { UserRoute } from '../utils/routes/UserRoute'
-import { getCompaniesAction } from '../actions/companyActions'
+import {
+  getCompaniesAction,
+  getCompaniesAdminAction,
+} from '../actions/companyActions'
 import { getUsersAdminAction } from '../actions/userActions'
 import { interceptor } from '../services/interceptor'
 
@@ -26,10 +29,9 @@ function App() {
   useEffect(() => {
     if (token) {
       axiosInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`
-    }
-    if (token && role === 'Admin') {
-      dispatch(getCompaniesAction(role))
-      dispatch(getUsersAdminAction())
+      role === 'Admin' && dispatch(getCompaniesAdminAction())
+      role === 'Admin' && dispatch(getUsersAdminAction())
+      role === 'User' && dispatch(getCompaniesAction())
     }
   }, [token, dispatch, role])
 

@@ -1,6 +1,4 @@
 import {
-  DELETE_COMPANY_SUCCESS,
-  GET_COMPANIES_SUCCESS,
   AUTH_SUCCESS,
   LOG_OUT,
   DELETE_PROFILE_SUCCESS,
@@ -25,18 +23,6 @@ export const userReducer = (state = initialState, action) => {
       return {
         ...state,
         ...action.payload.user,
-      }
-    case DELETE_COMPANY_SUCCESS:
-      return {
-        ...state,
-        company: state.company.filter(
-          (company) => +company.id !== +action.payload,
-        ),
-      }
-    case GET_COMPANIES_SUCCESS:
-      return {
-        ...state,
-        company: action.payload,
       }
     default:
       return state

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 import { InitialForm } from '../InitialForm/InitialForm'
 import { initialValues, validationSchema } from '../common/formikData'
-import { editUserAction } from '../../actions/userActions'
+import { editUserAction, editProfileAction } from '../../actions/userActions'
 
 export const EditUserForm = (props) => {
   const { id, valuesToFill } = props
@@ -21,7 +21,8 @@ export const EditUserForm = (props) => {
       initialValues={filledValues}
       validationSchema={validationSchema.user}
       onSubmit={(values) => {
-        dispatch(editUserAction(id, values, editType, currentUser.role))
+        editType === 'profile' && dispatch(editProfileAction(id, values))
+        editType === 'user' && dispatch(editUserAction(id, values))
         navigate(-1)
       }}
     >

@@ -98,10 +98,6 @@ export class UserService {
       return this.userModel.findOne({
         where: { email },
         attributes: { exclude: ['password'] },
-        include: {
-          model: Company,
-          required: false,
-        },
       });
     } catch (error) {
       throw new Error(error);

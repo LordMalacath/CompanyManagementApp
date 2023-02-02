@@ -11,7 +11,7 @@ export const EditPage = (props) => {
   const { id } = useParams()
   const role = useSelector((state) => state.user.role)
   const stateData = useSelector((state) => ({
-    company: role === 'Admin' ? state.admin.companies : state.user.company,
+    company: state.companies,
     user: role === 'Admin' ? state.admin.users : [state.user],
   }))
   const valuesToFill = findById(stateData[type], id)
