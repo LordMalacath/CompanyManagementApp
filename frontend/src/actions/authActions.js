@@ -17,7 +17,6 @@ export const registerUserAction = (user) => {
       })
       .catch((err) => {
         dispatch(authActionFailure(err))
-        toast.error(`${err.response.data.message}`)
       })
   }
 }
@@ -31,7 +30,6 @@ export const authorizeUserAction = (user) => {
       })
       .catch((err) => {
         dispatch(authActionFailure(err))
-        toast.error(`${err.response.data.message}`)
       })
   }
 }

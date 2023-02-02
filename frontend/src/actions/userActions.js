@@ -26,7 +26,6 @@ export const editUserAction = (id, user, type = 'profile', role = 'User') => {
       })
       .catch((err) => {
         dispatch(userActionFailure(err))
-        toast.error(`${err.response.data.message}`)
       })
   }
 }
@@ -46,7 +45,6 @@ export const deleteUserAction = (id, type = 'profile', role = 'User') => {
       })
       .catch((err) => {
         dispatch(userActionFailure(err))
-        toast.error('Something went wrong, try again later')
       })
   }
 }

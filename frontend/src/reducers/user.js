@@ -7,9 +7,7 @@ import {
   EDIT_PROFILE_SUCCESS,
 } from '../actions/types'
 
-const initialState = {
-  isAuthorized: false,
-}
+const initialState = {}
 
 export const userReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -18,7 +16,6 @@ export const userReducer = (state = initialState, action) => {
         ...state,
         ...action.payload.user,
         token: action.payload.token,
-        isAuthorized: true,
       }
     case LOG_OUT:
       return initialState

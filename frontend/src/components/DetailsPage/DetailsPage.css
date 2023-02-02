@@ -1,9 +1,9 @@
 .details {
+    padding: 2.5rem 0;
     flex-grow: 1;
 }
 
 .details__title {
-    margin-top: 2.5rem;
     text-align: center;
 }
 

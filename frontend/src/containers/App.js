@@ -11,13 +11,17 @@ import { axiosInstance } from '../api/axiosInstance'
 import { PrivateRoute } from '../utils/routes/PrivateRoute'
 import { AuthorizingRoute } from '../utils/routes/AuthorizingRoute'
 import { AdminRoute } from '../utils/routes/AdminRoute'
+import { UserRoute } from '../utils/routes/UserRoute'
 import { getCompaniesAction } from '../actions/companyActions'
 import { getUsersAdminAction } from '../actions/userActions'
+import { interceptor } from '../services/interceptor'
 
 function App() {
   const token = useSelector((state) => state.user.token)
   const role = useSelector((state) => state.user.role)
   const dispatch = useDispatch()
+
+  interceptor(dispatch)
 
   useEffect(() => {
     if (token) {
@@ -36,8 +40,10 @@ function App() {
           <Route index element={<List type="company" />} />
           <Route path="user/:id" element={<DetailsPage type="user" />} />
           <Route path="user/:id/edit" element={<EditPage type="user" />} />
-          <Route path="company/new" element={<CreatePage type="company" />} />
           <Route path="company/:id" element={<DetailsPage type="company" />} />
+          <Route element={<UserRoute />}>
+            <Route path="company/new" element={<CreatePage type="company" />} />
+          </Route>
           <Route element={<AdminRoute />}>
             <Route path="user/all" element={<List type="user" />} />
           </Route>

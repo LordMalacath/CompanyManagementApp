@@ -21,7 +21,6 @@ export const createCompanyAction = (company) => {
       })
       .catch((err) => {
         dispatch(companiesActionFailure(err))
-        toast.error('Something went wrong, try again later')
       })
   }
 }
@@ -36,7 +35,6 @@ export const deleteCompanyAction = (id) => {
       })
       .catch((err) => {
         dispatch(companiesActionFailure(err))
-        toast.error('Something went wrong, try again later')
       })
   }
 }
@@ -52,7 +50,6 @@ export const editCompanyAction = (id, company, role) => {
       })
       .catch((err) => {
         dispatch(companiesActionFailure(err))
-        toast.error('Something went wrong, try again later')
       })
   }
 }

@@ -1,9 +1,9 @@
 .list {
+    padding: 2.5rem 0;
     flex-grow: 1;
 }
 
 .list__title {
-    margin-top: 2.5rem;
     text-align: center;
 }
 
