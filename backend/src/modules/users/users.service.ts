@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common/decorators';
 import { InjectModel } from '@nestjs/sequelize';
 import * as bcrypt from 'bcrypt';
 import { AppError } from 'src/common/constants/errors';
-import { Company } from '../companies/models/company.model';
 import { CreateUser } from './dto/create-user.dto';
 import { EditUser } from './dto/edit-user.dto';
 import { User } from './models/user.model';

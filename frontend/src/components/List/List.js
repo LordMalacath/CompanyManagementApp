@@ -31,7 +31,7 @@ export const List = (props) => {
     <section className="list">
       <h2 className="list__title">
         {type === 'user'
-          ? 'User list'
+          ? 'Users list'
           : role === 'Admin'
           ? 'Companies list'
           : 'My companies'}

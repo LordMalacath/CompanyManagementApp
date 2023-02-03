@@ -29,20 +29,20 @@ export class CompanyController {
   @UseGuards(RoleGuard(Role.Admin))
   @UseGuards(JwtAuthGuard)
   @Get('all')
-  getAllCompaniesAdmin() {
+  getAllCompaniesAdmin(): Promise<Company[]> {
     return this.companyService.findAllAdmin();
   }
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  getAllCompanies(@Req() request) {
-    const { id: userId } = request.user;
-    return this.companyService.findAll(userId);
+  getAllCompanies(@Req() request): Promise<Company[]> {
+    const { id } = request.user;
+    return this.companyService.findAll(id);
   }
 
   @UseGuards(JwtAuthGuard)
   @Get(':id')
-  getOneCompany(@Param('id') id: string) {
+  getOneCompany(@Param('id') id: string): Promise<Company> {
     return this.companyService.findOne(id);
   }
 
@@ -60,7 +60,10 @@ export class CompanyController {
 
   @UseGuards(JwtAuthGuard)
   @Patch(':id')
-  editCompany(@Body() editCompany: EditCompany, @Param('id') id: string) {
+  editCompany(
+    @Body() editCompany: EditCompany,
+    @Param('id') id: string,
+  ): Promise<[affectedCount: number, affectedRows: Company[]]> {
     return this.companyService.update(id, editCompany);
   }
 
