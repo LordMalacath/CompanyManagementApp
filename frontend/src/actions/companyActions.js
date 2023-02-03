@@ -1,106 +1,79 @@
-import { toast } from 'react-toastify'
 import { CompaniesApi } from '../api/companiesApi'
+import { makeAsyncAction } from './makeAsyncAction'
 import {
   CREATE_COMPANY_SUCCESS,
   DELETE_COMPANY_SUCCESS,
   EDIT_COMPANY_SUCCESS,
   GET_COMPANIES_SUCCESS,
-  ASYNC_ACTION_STARTED,
-  ASYNC_ACTION_FAILURE,
   GET_COMPANIES_ADMIN_SUCCESS,
 } from './types'
 
 export const createCompanyAction = (company) => {
   return (dispatch) => {
-    dispatch(companiesActionStarted())
-    CompaniesApi.createCompany(company)
-      .then((res) => {
-        dispatch(createCompanySuccess(res))
-        dispatch(getCompaniesAction('User'))
-        toast.success(`${company.name} created`)
-      })
-      .catch((err) => {
-        dispatch(companiesActionFailure(err))
-      })
+    makeAsyncAction(dispatch, {
+      api: CompaniesApi.createCompany,
+      apiArguments: [company],
+      successActions: [createCompanySuccess, getCompaniesAction],
+      successMessage: `${company.name} created`,
+    })
   }
 }
 
 export const deleteCompanyAction = (id) => {
   return (dispatch) => {
-    dispatch(companiesActionStarted())
-    CompaniesApi.deleteCompany(id)
-      .then(() => {
-        dispatch(deleteCompanySuccess(id))
-        toast.success('Company deleted')
-      })
-      .catch((err) => {
-        dispatch(companiesActionFailure(err))
-      })
+    makeAsyncAction(dispatch, {
+      api: CompaniesApi.deleteCompany,
+      apiArguments: [id],
+      successActions: [deleteCompanySuccess],
+      successArguments: [id],
+      successMessage: 'Company deleted',
+    })
   }
 }
 
 export const editCompanyAction = (id, company, role) => {
   return (dispatch) => {
-    dispatch(companiesActionStarted())
-    CompaniesApi.editCompany(id, company)
-      .then(() => {
-        dispatch(getCompaniesAction(role))
-        dispatch(editCompanySuccess())
-        toast.success(`${company.name} changed`)
-      })
-      .catch((err) => {
-        dispatch(companiesActionFailure(err))
-      })
+    makeAsyncAction(dispatch, {
+      api: CompaniesApi.editCompany,
+      apiArguments: [id, company],
+      successActions: [
+        role === 'Admin' ? getCompaniesAdminAction : getCompaniesAction,
+        editCompanySuccess,
+      ],
+      successMessage: `${company.name} changed`,
+    })
   }
 }
 
-export const getCompaniesAction = (role) => {
+export const getCompaniesAction = () => {
   return (dispatch) => {
-    dispatch(companiesActionStarted())
-    getCompanies(role)
-      .then((res) => {
-        if (role === 'Admin') {
-          dispatch(getAdminCompaniesSuccess(res))
-        } else {
-          dispatch(getCompaniesSuccess(res))
-        }
-      })
-      .catch((err) => {
-        dispatch(companiesActionFailure(err))
-      })
+    makeAsyncAction(dispatch, {
+      api: CompaniesApi.getCompanies,
+      successActions: [getCompaniesSuccess],
+    })
   }
 }
 
-const getCompanies = (role) => {
-  if (role === 'Admin') {
-    return CompaniesApi.getCompaniesAdmin()
-  } else {
-    return CompaniesApi.getCompanies()
+export const getCompaniesAdminAction = () => {
+  return (dispatch) => {
+    makeAsyncAction(dispatch, {
+      api: CompaniesApi.getCompaniesAdmin,
+      successActions: [getCompaniesAdminSuccess],
+    })
   }
 }
-
-const companiesActionStarted = () => ({
-  type: ASYNC_ACTION_STARTED,
-})
-
-const companiesActionFailure = (error) => ({
-  type: ASYNC_ACTION_FAILURE,
-  payload: {
-    error,
-  },
-})
 
 const createCompanySuccess = (companies) => ({
   type: CREATE_COMPANY_SUCCESS,
   payload: companies,
 })
 
-const deleteCompanySuccess = (id) => ({
+const deleteCompanySuccess = (res, id) => ({
   type: DELETE_COMPANY_SUCCESS,
   payload: id,
 })
 
-const getAdminCompaniesSuccess = (companies) => ({
+const getCompaniesAdminSuccess = (companies) => ({
   type: GET_COMPANIES_ADMIN_SUCCESS,
   payload: companies,
 })

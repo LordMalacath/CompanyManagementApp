@@ -1,9 +1,7 @@
-import { toast } from 'react-toastify'
 import { UserApi } from '../api/userApi'
-import { getCompaniesAction } from './companyActions'
+import { getCompaniesAdminAction } from './companyActions'
+import { makeAsyncAction } from './makeAsyncAction'
 import {
-  ASYNC_ACTION_STARTED,
-  ASYNC_ACTION_FAILURE,
   DELETE_PROFILE_SUCCESS,
   EDIT_PROFILE_SUCCESS,
   GET_USERS_ADMIN_SUCCESS,
@@ -12,100 +10,92 @@ import {
   CREATE_NEW_USER_PASSWORD_SUCCESS,
 } from './types'
 
-export const editUserAction = (id, user, type = 'profile', role = 'User') => {
+export const editUserAction = (id, user) => {
   return (dispatch) => {
-    dispatch(userActionStarted())
-    UserApi.editUser(id, user)
-      .then((res) => {
-        if (type === 'user' && role === 'Admin') {
-          dispatch(editUserAdminSuccess(id, res))
-          toast.success('User changed')
-        } else {
-          dispatch(editProfileSuccess(id, res))
-          toast.success('Profile changed')
-        }
-      })
-      .catch((err) => {
-        dispatch(userActionFailure(err))
-      })
+    makeAsyncAction(dispatch, {
+      api: UserApi.editUser,
+      apiArguments: [id, user],
+      successActions: [editUserAdminSuccess],
+      successArguments: [id],
+      successMessage: 'User changed',
+    })
+  }
+}
+
+export const editProfileAction = (id, user) => {
+  return (dispatch) => {
+    makeAsyncAction(dispatch, {
+      api: UserApi.editUser,
+      apiArguments: [id, user],
+      successActions: [editProfileSuccess],
+      successArguments: [id],
+      successMessage: 'Profile changed',
+    })
   }
 }
 
 export const createNewPasswordAction = (id, password) => {
   return (dispatch) => {
-    dispatch(userActionStarted())
-    UserApi.editUserPassword(id, { password })
-      .then(() => {
-        dispatch(createNewUserPasswordSuccess())
-        toast.success('Password changed')
-      })
-      .catch((err) => {
-        dispatch(userActionFailure(err))
-      })
+    makeAsyncAction(dispatch, {
+      api: UserApi.editUserPassword,
+      apiArguments: [id, { password }],
+      successActions: [createNewUserPasswordSuccess],
+      successMessage: 'Password changed',
+    })
   }
 }
 
-export const deleteUserAction = (id, type = 'profile', role = 'User') => {
+export const deleteUserAction = (id) => {
   return (dispatch) => {
-    dispatch(userActionStarted())
-    UserApi.deleteUser(id)
-      .then((res) => {
-        if (type === 'user' && role === 'Admin') {
-          dispatch(deleteUserAdminSuccess(id))
-          dispatch(getCompaniesAction(role))
-          toast.success('User deleted')
-        } else {
-          dispatch(deleteProfileSuccess(res))
-        }
-      })
-      .catch((err) => {
-        dispatch(userActionFailure(err))
-      })
+    makeAsyncAction(dispatch, {
+      api: UserApi.deleteUser,
+      apiArguments: [id],
+      successActions: [deleteUserAdminSuccess, getCompaniesAdminAction],
+      successArguments: [id],
+      successMessage: 'User deleted',
+    })
+  }
+}
+
+export const deleteProfileAction = (id) => {
+  return (dispatch) => {
+    makeAsyncAction(dispatch, {
+      api: UserApi.deleteUser,
+      apiArguments: [id],
+      successActions: [deleteProfileSuccess],
+    })
   }
 }
 
 export const getUsersAdminAction = () => {
   return (dispatch) => {
-    dispatch(userActionStarted())
-    UserApi.getUsersAdmin()
-      .then((res) => {
-        dispatch(getAdminUsersSuccess(res))
-      })
-      .catch((err) => {
-        dispatch(userActionFailure(err))
-      })
+    makeAsyncAction(dispatch, {
+      api: UserApi.getUsersAdmin,
+      successActions: [getUsersAdminSuccess],
+    })
   }
 }
 
-const getAdminUsersSuccess = (users) => ({
+const getUsersAdminSuccess = (users) => ({
   type: GET_USERS_ADMIN_SUCCESS,
   payload: users,
-})
-
-const userActionStarted = () => ({
-  type: ASYNC_ACTION_STARTED,
-})
-
-const userActionFailure = (error) => ({
-  type: ASYNC_ACTION_FAILURE,
-  payload: { error },
 })
 
 const deleteProfileSuccess = () => ({
   type: DELETE_PROFILE_SUCCESS,
 })
 
-const deleteUserAdminSuccess = (id) => ({
+const deleteUserAdminSuccess = (res, id) => ({
   type: DELETE_USER_ADMIN_SUCCESS,
   payload: id,
 })
 
-const editProfileSuccess = (id, user) => ({
+const editProfileSuccess = (user, id) => ({
   type: EDIT_PROFILE_SUCCESS,
   payload: { user, id },
 })
 
-const editUserAdminSuccess = (id, user) => ({
+const editUserAdminSuccess = (user, id) => ({
   type: EDIT_USER_ADMIN_SUCCESS,
   payload: { id, user },
 })

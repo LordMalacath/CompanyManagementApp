@@ -1,52 +1,30 @@
-import { toast } from 'react-toastify'
 import { AuthApi } from '../api/authApi'
-import {
-  ASYNC_ACTION_STARTED,
-  ASYNC_ACTION_FAILURE,
-  AUTH_SUCCESS,
-  LOG_OUT,
-} from './types'
+import { makeAsyncAction } from './makeAsyncAction'
+import { AUTH_SUCCESS, LOG_OUT } from './types'
 
 export const registerUserAction = (user) => {
   return (dispatch) => {
-    dispatch(authActionStarted())
-    AuthApi.registerUser(user)
-      .then((res) => {
-        dispatch(authSuccess(res))
-        toast.success('Registration completed successfully')
-      })
-      .catch((err) => {
-        dispatch(authActionFailure(err))
-      })
+    makeAsyncAction(dispatch, {
+      api: AuthApi.registerUser,
+      apiArguments: [user],
+      successActions: [authSuccess],
+      successMessage: 'Registration completed successfully',
+    })
   }
 }
 
 export const authorizeUserAction = (user) => {
   return (dispatch) => {
-    dispatch(authActionStarted())
-    AuthApi.authorizeUser(user)
-      .then((res) => {
-        dispatch(authSuccess(res))
-      })
-      .catch((err) => {
-        dispatch(authActionFailure(err))
-      })
+    makeAsyncAction(dispatch, {
+      api: AuthApi.authorizeUser,
+      apiArguments: [user],
+      successActions: [authSuccess],
+    })
   }
 }
 
 export const logOutAction = () => ({
   type: LOG_OUT,
-})
-
-const authActionStarted = () => ({
-  type: ASYNC_ACTION_STARTED,
-})
-
-const authActionFailure = (error) => ({
-  type: ASYNC_ACTION_FAILURE,
-  payload: {
-    error,
-  },
 })
 
 const authSuccess = (user) => ({

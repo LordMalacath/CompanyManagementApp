@@ -1,7 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteCompanyAction } from '../../actions/companyActions'
-import { deleteUserAction } from '../../actions/userActions'
+import {
+  deleteUserAction,
+  deleteProfileAction,
+} from '../../actions/userActions'
 import { formatTheField } from '../../utils/formatTheField'
 import './DetailsList.css'
 
@@ -35,7 +38,9 @@ export const DetailsList = (props) => {
     navigate(-1)
     type === 'company' && dispatch(deleteCompanyAction(id))
     type === 'user' &&
-      dispatch(deleteUserAction(id, deleteType, currentUser.role))
+      deleteType === 'profile' &&
+      dispatch(deleteProfileAction(id))
+    type === 'user' && deleteType === 'user' && dispatch(deleteUserAction(id))
   }
 
   return (

@@ -13,7 +13,7 @@ export const DetailsPage = (props) => {
   const userId = useSelector((state) => state.user.id)
   const role = useSelector((state) => state.user.role)
   const stateData = useSelector((state) => ({
-    company: role === 'Admin' ? state.admin.companies : state.user.company,
+    company: state.companies,
     user: role === 'Admin' ? state.admin.users : [state.user],
   }))
   const renderData = findById(stateData[type], id)
