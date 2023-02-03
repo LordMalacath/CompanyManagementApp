@@ -18,6 +18,12 @@
     height: 3.125rem;
     cursor: pointer;
     margin: 1.25rem auto 0 auto;
+    transition: .2s all ease;
+    opacity: 0.6;
+}
+
+.list__add:hover {
+    opacity: 1;
 }
 
 .list__add svg {

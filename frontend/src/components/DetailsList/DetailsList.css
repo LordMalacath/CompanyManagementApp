@@ -66,6 +66,7 @@
     border: 0.0625rem solid #ccc;
     margin-top: 1.25rem;
     width: fit-content;
+    transition: .2s all ease;
 }
 
 .details-list__button:hover {
@@ -73,5 +74,9 @@
 }
 
 .details-list__button_delete:hover {
-    background-color: rgba(255, 64, 64, .2);
+    background-color: rgba(250, 67, 43, .2);
+}
+
+.details-list__button_password:hover {
+    background-color: rgba(38, 156, 222, .2);
 }

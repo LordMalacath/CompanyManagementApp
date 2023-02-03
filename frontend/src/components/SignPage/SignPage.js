@@ -1,6 +1,5 @@
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { ToastContainer } from 'react-toastify'
 import { SignInForm } from '../SignForms/SignInForm'
 import { SignUpForm } from '../SignForms/SignUpForm'
 import { Loader } from '../Loader/Loader'
@@ -13,7 +12,6 @@ export const SignPage = (props) => {
   const isLoading = useSelector((state) => state.page.isLoading)
   return (
     <div className="sign__wrapper">
-      <ToastContainer autoClose={2000} />
       {isLoading && <Loader />}
       <div className="sign">
         <div className="sign__header">

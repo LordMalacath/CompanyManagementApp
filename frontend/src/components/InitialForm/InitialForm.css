@@ -52,6 +52,7 @@
     border-radius: 0.625rem;
     border: 0.0625rem solid #ccc;
     margin: 2.25rem auto 0 auto;
+    transition: .2s all ease;
 }
 
 .form__button:hover {

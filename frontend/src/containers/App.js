@@ -1,6 +1,7 @@
 import { Routes, Route, Navigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { ToastContainer } from 'react-toastify'
 import { Layout } from '../components/Layout/Layout'
 import { List } from '../components/List/List'
 import { SignPage } from '../components/SignPage/SignPage'
@@ -18,6 +19,7 @@ import {
 } from '../actions/companyActions'
 import { getUsersAdminAction } from '../actions/userActions'
 import { interceptor } from '../services/interceptor'
+import './App.css'
 
 function App() {
   const token = useSelector((state) => state.user.token)
@@ -36,36 +38,45 @@ function App() {
   }, [token, dispatch, role])
 
   return (
-    <Routes>
-      <Route element={<PrivateRoute />}>
-        <Route path="/" element={<Layout />}>
-          <Route index element={<List type="company" />} />
-          <Route path="user/:id" element={<DetailsPage type="user" />} />
-          <Route path="user/:id/edit" element={<EditPage type="user" />} />
-          <Route
-            path="user/:id/newpassword"
-            element={<CreatePage type="password" />}
-          />
-          <Route path="company/:id" element={<DetailsPage type="company" />} />
-          <Route element={<UserRoute />}>
-            <Route path="company/new" element={<CreatePage type="company" />} />
+    <>
+      <Routes>
+        <Route element={<PrivateRoute />}>
+          <Route path="/" element={<Layout />}>
+            <Route index element={<List type="company" />} />
+            <Route path="user/:id" element={<DetailsPage type="user" />} />
+            <Route path="user/:id/edit" element={<EditPage type="user" />} />
+            <Route
+              path="user/:id/newpassword"
+              element={<CreatePage type="password" />}
+            />
+            <Route
+              path="company/:id"
+              element={<DetailsPage type="company" />}
+            />
+            <Route element={<UserRoute />}>
+              <Route
+                path="company/new"
+                element={<CreatePage type="company" />}
+              />
+            </Route>
+            <Route element={<AdminRoute />}>
+              <Route path="user/all" element={<List type="user" />} />
+            </Route>
+            <Route
+              path="company/:id/edit"
+              element={<EditPage type="company" />}
+            />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
-          <Route element={<AdminRoute />}>
-            <Route path="user/all" element={<List type="user" />} />
-          </Route>
-          <Route
-            path="company/:id/edit"
-            element={<EditPage type="company" />}
-          />
-          <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
-      </Route>
-      <Route element={<AuthorizingRoute />}>
-        <Route path="signin" element={<SignPage type="signin" />} />
-        <Route path="signup" element={<SignPage type="signup" />} />
-        <Route path="*" element={<Navigate to="signin" replace />} />
-      </Route>
-    </Routes>
+        <Route element={<AuthorizingRoute />}>
+          <Route path="signin" element={<SignPage type="signin" />} />
+          <Route path="signup" element={<SignPage type="signup" />} />
+          <Route path="*" element={<Navigate to="signin" replace />} />
+        </Route>
+      </Routes>
+      <ToastContainer autoClose={2000} />
+    </>
   )
 }
 

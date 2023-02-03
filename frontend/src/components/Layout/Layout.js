@@ -1,6 +1,5 @@
 import { NavLink, Outlet } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
-import { ToastContainer } from 'react-toastify'
 import { changeMenuStateAction } from '../../actions/pageActions'
 import { ReactComponent as ReactLogo } from '../../assets/img/logo.svg'
 import { ReactComponent as ReactCompaniesIcon } from '../../assets/img/companiesIcon.svg'
@@ -78,7 +77,6 @@ export const Layout = () => {
           </NavLink>
         </nav>
         <Outlet />
-        <ToastContainer autoClose={2000} />
         {isLoading && <Loader shifted></Loader>}
       </main>
     </>

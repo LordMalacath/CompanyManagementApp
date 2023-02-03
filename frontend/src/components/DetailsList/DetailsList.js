@@ -55,7 +55,10 @@ export const DetailsList = (props) => {
       </div>
       <div className="details-list__buttons">
         {type === 'user' && (
-          <Link to={`newpassword`} className="details-list__button">
+          <Link
+            to={`newpassword`}
+            className="details-list__button details-list__button_password"
+          >
             Create new password
           </Link>
         )}
