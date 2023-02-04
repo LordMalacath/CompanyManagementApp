@@ -40,7 +40,6 @@ export const pageReducer = (state = initialState, action) => {
     case CREATE_NEW_USER_PASSWORD_SUCCESS:
       return { ...state, isLoading: false }
     case LOG_OUT:
-      return initialState
     case DELETE_PROFILE_SUCCESS:
       return initialState
     default:

@@ -16,7 +16,6 @@ export const userReducer = (state = initialState, action) => {
         token: action.payload.token,
       }
     case LOG_OUT:
-      return initialState
     case DELETE_PROFILE_SUCCESS:
       return initialState
     case EDIT_PROFILE_SUCCESS:
